@@ -70,7 +70,7 @@ transactionRouter.delete('/:id', async (req, res) => {
    
     const transaction = await transactionService.remove(id);
 
-    res.status(204);
+    res.status(204).send();
 
   } catch (error) {
     res.status(500).send({

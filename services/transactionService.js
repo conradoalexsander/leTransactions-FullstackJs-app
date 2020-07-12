@@ -64,7 +64,8 @@ const remove = async (id) => {
     if (!transaction) {
      throw new Error('No documents could be find with this criteria');
     }
-    return transaction;
+
+    return 'Ok'
 
   } catch (error) {
     throw new Error('Nao foi possivel deletar o transaction id: ' + id);
