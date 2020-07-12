@@ -18,38 +18,27 @@ const create = async (newTransaction) => {
   }
 };
 
-// const findAll = async (req, res) => {
-//   const name = req.query.name;
+const findAll = async (period) => {
+  try {
+    const transactions = await TransactionModel.find({yearMonth: period});
+    return transactions;
 
-//   //condicao para o filtro no findAll
-//   var condition = name
-//     ? { name: { $regex: new RegExp(name), $options: 'i' } }
-//     : {};
+  } catch (error) {
 
-//   try {
-//     const grades = await gradeModel.find(condition);
-//     res.send(grades);
-//     logger.info(`GET /grade`);
-//   } catch (error) {
-//     res
-//       .status(500)
-//       .send({ message: error.message || 'Erro ao listar todos os documentos' });
-//     logger.error(`GET /grade - ${JSON.stringify(error.message)}`);
-//   }
-// };
+    throw error;
+  }
+};
 
-// const findOne = async (req, res) => {
-//   const id = req.params.id;
+const findOne = async (id) => {
+  try {
+    const transaction = await TransactionModel.findById(id);
+    return transaction
 
-//   try {
-//     const grade = await gradeModel.findById(id);
-//     res.send(grade);
-//     logger.info(`GET /grade - ${id}`);
-//   } catch (error) {
-//     res.status(500).send({ message: 'Erro ao buscar o Grade id: ' + id });
-//     logger.error(`GET /grade - ${JSON.stringify(error.message)}`);
-//   }
-// };
+  } catch (error) {
+    throw error;
+
+  }
+};
 
 // const update = async (req, res) => {
 //   if (!req.body) {
@@ -106,4 +95,4 @@ const create = async (newTransaction) => {
 //   }
 // };
 
-module.exports = {create }
+module.exports = { create, findAll, findOne }
