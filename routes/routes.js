@@ -49,8 +49,35 @@ transactionRouter.get('/:id', async (req, res) => {
   }
 });
 
-// transactionRouter.put('/grade/:id', controller.update);
-// transactionRouter.delete('/grade/:id', controller.remove);
-// transactionRouter.delete('/grade/', controller.removeAll);
+transactionRouter.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+   
+    const transaction = await transactionService.update(id, req.body);
+
+    res.send(transaction);
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || 'An error occured, contact the developer',
+    });
+  }
+});
+
+transactionRouter.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+   
+    const transaction = await transactionService.remove(id);
+
+    res.status(204);
+
+  } catch (error) {
+    res.status(500).send({
+      message: error.message || 'An error occured, contact the developer',
+    });
+  }
+});
+
 
 module.exports = transactionRouter;
