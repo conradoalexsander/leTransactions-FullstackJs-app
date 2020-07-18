@@ -1,0 +1,7 @@
+.row span {
+  margin: 20px;
+}
+
+html, body, .my-wrapper {
+  height: 100%
+}

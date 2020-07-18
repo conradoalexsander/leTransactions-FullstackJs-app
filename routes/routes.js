@@ -19,8 +19,8 @@ transactionRouter.get('/', async (req, res) => {
     const { period } = req.query;
     const transactions = await transactionService.findAll(period);
 
-    if(transactions.length === 0){
-      res.send({message: 'No results could be found with this criteria'});
+    if (transactions.length === 0) {
+      res.send([{ message: 'No results could be found with this criteria' }]);
     }
 
     res.send(transactions);
@@ -36,8 +36,8 @@ transactionRouter.get('/:id', async (req, res) => {
     const { id } = req.params;
     const transaction = await transactionService.findOne(id);
 
-    if(transaction.length === 0){
-      res.send({message: 'No results could be found with this criteria'});
+    if (transaction.length === 0) {
+      res.send({ message: 'No results could be found with this criteria' });
     }
 
     res.send(transaction);
@@ -52,7 +52,7 @@ transactionRouter.get('/:id', async (req, res) => {
 transactionRouter.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-   
+
     const transaction = await transactionService.update(id, req.body);
 
     res.send(transaction);
@@ -67,7 +67,7 @@ transactionRouter.put('/:id', async (req, res) => {
 transactionRouter.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-   
+
     const transaction = await transactionService.remove(id);
 
     res.status(204).send();
