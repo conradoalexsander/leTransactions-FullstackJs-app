@@ -4,6 +4,7 @@ import './style.css'
 
 import Modal from 'react-modal';
 import CreateEditForm from '../CreateEditForm';
+import api from '../../services/api';
 
 const customStyles = {
   content: {
@@ -29,6 +30,8 @@ function TransactionCard({
   description,
   type,
   value,
+  setSelectedDate,
+  setRefreshData,
   yearMonthDay,
 }) {
 
@@ -41,6 +44,17 @@ function TransactionCard({
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  async function handleDelete(_id) {
+    try {
+      await api.delete(`/${_id}`);
+      alert('Transação excluída com exito!')
+      setRefreshData(new Date());
+    } catch (error) {
+      console.log(error);
+
+    }
   }
 
 
@@ -78,7 +92,7 @@ function TransactionCard({
 
           <i className="material-icons" onClick={openModal}>edit</i>
 
-          <i className="material-icons">delete</i>
+          <i className="material-icons" onClick={() => handleDelete(_id)}>delete</i>
         </div>
       </div>
 
@@ -95,7 +109,10 @@ function TransactionCard({
           originalDescription={description}
           originalValue={value}
           originalDate={yearMonthDay}
-          onClick={closeModal} isEditing={true} />
+          closeModal={closeModal}
+          setSelectedDate={(period) => setSelectedDate(period)}
+          setRefreshData={(period) => setRefreshData(period)}
+          isEditing={true} />
       </Modal>
     </div>
   );

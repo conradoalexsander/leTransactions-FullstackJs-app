@@ -27,14 +27,45 @@ export default function App() {
   const [dateOptions, setDateOptions] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
   const [transactionsData, setTransactionsData] = useState([]);
+  const [refreshData, setRefreshData] = useState('')
+
 
 
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const todayDate = new Date();
+
+    const last12Months = getDaysArray(new Date(todayDate.getFullYear() - 1, 0, 1), todayDate);
+    let next12Months = getDaysArray(todayDate, new Date(todayDate.getFullYear() + 1, 11, 31));
+
+    next12Months = next12Months.slice(1);
+
+    setDateOptions([...last12Months, ...next12Months]);
+
+
+  }, [])
+
+  useEffect(() => {
+    console.log(selectedDate)
+    api.get('/', { params: { period: selectedDate } }).then(response => {
+
+      setTransactionsData(response.data);
+
+    });
+
+
+  }, [selectedDate, refreshData]);
+
+  useEffect(() => {
+    const today = new Date().toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })
+    setSelectedDate(today);
+  }, []);
+
+
   function openModal() {
     setIsOpen(true);
   }
-
-
 
   function closeModal() {
     setIsOpen(false);
@@ -56,7 +87,7 @@ export default function App() {
   }
 
   function handleDateSelection(event) {
-    console.log(event.target.value);
+
     setSelectedDate(event.target.value)
   }
 
@@ -69,28 +100,7 @@ export default function App() {
   };
 
 
-  useEffect(() => {
-    const todayDate = new Date();
 
-    const last12Months = getDaysArray(new Date(todayDate.getFullYear() - 1, 0, 1), todayDate);
-    let next12Months = getDaysArray(todayDate, new Date(todayDate.getFullYear() + 1, 11, 31));
-
-    next12Months = next12Months.slice(1);
-
-    setDateOptions([...last12Months, ...next12Months]);
-
-
-  }, [])
-
-  useEffect(() => {
-    api.get('/', { params: { period: selectedDate } }).then(response => {
-
-      setTransactionsData(response.data);
-
-    });
-
-
-  }, [selectedDate]);
 
 
   return (
@@ -100,23 +110,37 @@ export default function App() {
       <div>
 
       </div>
-      <div className="input-field col s12">
-        <select className="browser-default" onChange={handleDateSelection}>
-          <option value="" defaultValue>Choose your option</option>
-          {dateOptions.map(date => (
+      <div className="row">
+        <div className="col s12">
+          <div className="input-field center-align col s4 offset-s4">
+            <select value={selectedDate} className="browser-default" onChange={handleDateSelection}>
 
-            <option
-              key={date}
-              value={date.toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })}
-            >
+              {dateOptions.map(date => (
 
-              {`${formatMonth(date.toLocaleString('pt-BR', { month: 'short' }))}/${date.getFullYear()}`}
+                <option
+                  key={date}
+                  value={date.toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })}
+                >
 
-            </option>))}
+                  {`${formatMonth(date.toLocaleString('pt-BR', { month: 'short' }))}/${date.getFullYear()}`}
 
-        </select>
-        <button className="btn waves-effect waves-light" onClick={openModal}>Open Modal</button>
+                </option>))}
+
+            </select>
+
+          </div>
+
+        </div>
+
       </div>
+      <div className="row my-wrapper valign-wrapper">
+        <button className="btn waves-effect waves-light" onClick={openModal}>+ NOVO LANÇAMENTO</button>
+        <div className="col s9">
+          <label htmlFor="filtro">Filtro</label>
+          <input placeholder="filtre os resultados pela sua descrição" name="filtro" id="filtro" type="text" className="validate" />
+        </div>
+      </div>
+
       {transactionsData &&
         transactionsData.map((transaction, index) => {
           const {
@@ -145,6 +169,9 @@ export default function App() {
               yearMonthDay={yearMonthDay}
               _id={_id}
 
+              setSelectedDate={(period) => setSelectedDate(period)}
+              setRefreshData={(period) => setRefreshData(period)}
+
             />)
         })
       }
@@ -154,9 +181,15 @@ export default function App() {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
+
         contentLabel="Example Modal"
       >
-        <CreateEditForm onClick={closeModal} />
+        <CreateEditForm
+          setSelectedDate={(period) => setSelectedDate(period)}
+          setRefreshData={(period) => setRefreshData(period)}
+          isEditing={false}
+          closeModal={closeModal}
+        />
       </Modal>
     </div >
   )
