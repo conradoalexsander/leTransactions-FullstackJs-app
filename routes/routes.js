@@ -16,8 +16,8 @@ transactionRouter.post('/', async (req, res) => {
 
 transactionRouter.get('/', async (req, res) => {
   try {
-    const { period } = req.query;
-    const transactions = await transactionService.findAll(period);
+    const { period, description } = req.query;
+    const transactions = await transactionService.findAll(period, description);
 
     if (transactions.length === 0) {
       res.send([{ message: 'No results could be found with this criteria' }]);

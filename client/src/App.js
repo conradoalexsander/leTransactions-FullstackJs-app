@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import TransactionCard from './components/TransactionCard';
 import CreateEditForm from '../src/components/CreateEditForm';
 import api from './services/api';
 import Modal from 'react-modal';
+import TransactionsSummary from './components/TransactionsSummary';
 
 const customStyles = {
   content: {
@@ -24,10 +25,22 @@ Modal.setAppElement('#root')
 
 
 export default function App() {
+  const [transactionsData, setTransactionsData] = useState([]);
+  const [refreshData, setRefreshData] = useState('');
+
   const [dateOptions, setDateOptions] = useState([]);
   const [selectedDate, setSelectedDate] = useState('');
-  const [transactionsData, setTransactionsData] = useState([]);
-  const [refreshData, setRefreshData] = useState('')
+
+  const [numberOfTransactions, setNumberOfTransactions] = useState(0);
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalDispense, setTotalDispense] = useState(0);
+  const [balance, setBalance] = useState(0);
+
+  const [filter, setFilter] = useState('');
+
+  const selectRef = useRef();
+
+
 
 
 
@@ -47,15 +60,35 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    console.log(selectedDate)
-    api.get('/', { params: { period: selectedDate } }).then(response => {
+
+    api.get('/', { params: { period: selectedDate, description: filter } }).then(response => {
 
       setTransactionsData(response.data);
 
+      setNumberOfTransactions(transactionsData.length);
+
+      const incomes = transactionsData
+        .filter(transaction => (transaction.type === "+"))
+        .map(transaction => transaction.value);
+
+
+
+      const dispenses = transactionsData
+        .filter(transaction => (transaction.type === "-"))
+        .map(transaction => transaction.value);
+
+
+
+      const totalIncome = incomes.reduce((acc, curr) => acc + curr, 0);
+      const totalDispense = dispenses.reduce((acc, curr) => acc + curr, 0);
+      setTotalIncome(totalIncome);
+      setTotalDispense(totalDispense);
+      setBalance(totalIncome - totalDispense);
+      console.log(totalIncome);
     });
 
 
-  }, [selectedDate, refreshData]);
+  }, [selectedDate, filter, refreshData]);
 
   useEffect(() => {
     const today = new Date().toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })
@@ -88,8 +121,35 @@ export default function App() {
 
   function handleDateSelection(event) {
 
+
+    const selectedIndex = event.target.options.selectedIndex;
+    console.log(selectedIndex);
     setSelectedDate(event.target.value)
   }
+
+
+
+  function handleInputChange(event) {
+    const { value } = event.target;
+    setFilter(value);
+  }
+
+  function handleNextOption(event, forwardOrBackward) {
+
+    if (forwardOrBackward == '>') {
+
+      selectRef.current.selectedIndex += 1;
+      setSelectedDate(selectRef.current.value);
+    } else {
+
+      selectRef.current.selectedIndex -= 1;
+      setSelectedDate(selectRef.current.value);
+
+    }
+
+
+  }
+
 
   const getDaysArray = function (start, end) {
     for (var arr = [], dt = new Date(start); dt <= end; dt.setMonth(dt.getMonth() + 1)) {
@@ -99,27 +159,35 @@ export default function App() {
     return arr;
   };
 
-
-
-
-
   return (
     <div className="container" >
 
       <h2 className="center-align">Controle Financeiro Pessoal</h2>
       <div>
-
+        <TransactionsSummary
+          numberOfTransactions={numberOfTransactions}
+          totalIncome={totalIncome}
+          totalDispense={totalDispense}
+          balance={balance}
+        />
       </div>
-      <div className="row">
-        <div className="col s12">
-          <div className="input-field center-align col s4 offset-s4">
-            <select value={selectedDate} className="browser-default" onChange={handleDateSelection}>
+      <div className="row center-align my-wrapper valign-wrapper">
+
+        <div className="col right-align  s5">
+          <button className="btn waves-effect waves-light" onClick={() => handleNextOption('<')}> {'<'} </button>
+        </div>
+        <div className="col s2">
+
+          <div className="input-field ">
+            <select value={selectedDate} ref={selectRef} className="browser-default" onChange={handleDateSelection}>
 
               {dateOptions.map(date => (
 
                 <option
+
                   key={date}
                   value={date.toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })}
+
                 >
 
                   {`${formatMonth(date.toLocaleString('pt-BR', { month: 'short' }))}/${date.getFullYear()}`}
@@ -127,17 +195,24 @@ export default function App() {
                 </option>))}
 
             </select>
-
           </div>
-
+        </div>
+        <div className="col left-align s5">
+          <button className="btn waves-effect waves-light" onClick={() => handleNextOption('>')}> {'>'} </button>
         </div>
 
+
+
+
+
+
       </div>
+
       <div className="row my-wrapper valign-wrapper">
         <button className="btn waves-effect waves-light" onClick={openModal}>+ NOVO LANÇAMENTO</button>
         <div className="col s9">
           <label htmlFor="filtro">Filtro</label>
-          <input placeholder="filtre os resultados pela sua descrição" name="filtro" id="filtro" type="text" className="validate" />
+          <input placeholder="filtre os resultados pela sua descrição" name="filtro" id="filtro" type="text" onChange={handleInputChange} className="validate" />
         </div>
       </div>
 

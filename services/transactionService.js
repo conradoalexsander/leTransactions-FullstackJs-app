@@ -15,10 +15,16 @@ const create = async (newTransaction) => {
   }
 };
 
-const findAll = async (period) => {
+const findAll = async (period, description) => {
   try {
+    if (description) {
+      const transactions = await TransactionModel.find({ yearMonth: period, description: { $regex: `.*${description}.*`, $options: '-i' } });
+      return transactions
+    }
+
     const transactions = await TransactionModel.find({ yearMonth: period });
     return transactions;
+
   } catch (error) {
     throw error;
   }
@@ -62,7 +68,7 @@ const remove = async (id) => {
     const transaction = await TransactionModel.findOneAndDelete({ _id: id });
 
     if (!transaction) {
-     throw new Error('No documents could be find with this criteria');
+      throw new Error('No documents could be find with this criteria');
     }
 
     return 'Ok'

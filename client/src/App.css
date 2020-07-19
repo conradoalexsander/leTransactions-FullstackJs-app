@@ -2,6 +2,10 @@
   margin: 20px;
 }
 
-html, body, .my-wrapper {
-  height: 100%
+.my-wrapper {
+  height: 100%;
+}
+
+button {
+  z-index: 0 !important;
 }
