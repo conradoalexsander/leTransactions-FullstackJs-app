@@ -84,7 +84,7 @@ export default function App() {
       setTotalIncome(totalIncome);
       setTotalDispense(totalDispense);
       setBalance(totalIncome - totalDispense);
-      console.log(totalIncome);
+
     });
 
 
@@ -93,6 +93,7 @@ export default function App() {
   useEffect(() => {
     const today = new Date().toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })
     setSelectedDate(today);
+
   }, []);
 
 
@@ -123,7 +124,7 @@ export default function App() {
 
 
     const selectedIndex = event.target.options.selectedIndex;
-    console.log(selectedIndex);
+
     setSelectedDate(event.target.value)
   }
 
@@ -135,8 +136,8 @@ export default function App() {
   }
 
   function handleNextOption(event, forwardOrBackward) {
-
-    if (forwardOrBackward == '>') {
+    console.log(forwardOrBackward)
+    if (forwardOrBackward === '>') {
 
       selectRef.current.selectedIndex += 1;
       setSelectedDate(selectRef.current.value);
@@ -174,7 +175,7 @@ export default function App() {
       <div className="row center-align my-wrapper valign-wrapper">
 
         <div className="col right-align  s5">
-          <button className="btn waves-effect waves-light" onClick={() => handleNextOption('<')}> {'<'} </button>
+          <button className="btn waves-effect waves-light" onClick={(event) => handleNextOption(event, '<')}> {'<'} </button>
         </div>
         <div className="col s2">
 
@@ -198,7 +199,7 @@ export default function App() {
           </div>
         </div>
         <div className="col left-align s5">
-          <button className="btn waves-effect waves-light" onClick={() => handleNextOption('>')}> {'>'} </button>
+          <button className="btn waves-effect waves-light" onClick={(event) => handleNextOption(event, '>')}> {'>'} </button>
         </div>
 
 
@@ -209,14 +210,14 @@ export default function App() {
       </div>
 
       <div className="row my-wrapper valign-wrapper">
-        <button className="btn waves-effect waves-light" onClick={openModal}>+ NOVO LANÇAMENTO</button>
+        <button className="btn waves-effect waves-light" onClick={openModal} disabled={filter !== '' ? true : false}>+ NOVO LANÇAMENTO</button>
         <div className="col s9">
           <label htmlFor="filtro">Filtro</label>
           <input placeholder="filtre os resultados pela sua descrição" name="filtro" id="filtro" type="text" onChange={handleInputChange} className="validate" />
         </div>
       </div>
 
-      {transactionsData &&
+      {transactionsData.length > 0 &&
         transactionsData.map((transaction, index) => {
           const {
             category,
