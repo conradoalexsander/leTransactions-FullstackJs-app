@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import api from '../../services/api';
 
+const style = {
+  income: {
+    color: 'teal',
+    fontWeight: 'bold'
+  },
+  dispense: {
+    color: 'red',
+    fontWeight: 'bold'
+  }
+}
+
 export default function CreateEditForm({
   _id,
   originalType,
@@ -129,11 +140,11 @@ export default function CreateEditForm({
 
             <div className="row center-align">
               <label>
-                <input name="type" type="radio" value="+" onChange={handleSelectedType} defaultChecked={isIncome} required disabled={isEditing} />
+                <input name="type" style={style.income} type="radio" value="+" onChange={handleSelectedType} defaultChecked={isIncome} required disabled={isEditing} />
                 <span>Receita</span>
               </label>
               <label>
-                <input name="type" type="radio" value="-" onChange={handleSelectedType} defaultChecked={isDispense} disabled={isEditing} />
+                <input name="type" style={style.dispense} type="radio" value="-" onChange={handleSelectedType} defaultChecked={isDispense} disabled={isEditing} />
                 <span>Despesa</span>
               </label>
             </div>
