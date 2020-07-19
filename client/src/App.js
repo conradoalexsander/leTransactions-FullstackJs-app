@@ -63,27 +63,32 @@ export default function App() {
 
     api.get('/', { params: { period: selectedDate, description: filter } }).then(response => {
 
-      setTransactionsData(response.data);
+      if (response.status === 200) {
 
-      setNumberOfTransactions(transactionsData.length);
+        setTransactionsData(response.data);
 
-      const incomes = transactionsData
-        .filter(transaction => (transaction.type === "+"))
-        .map(transaction => transaction.value);
+        setNumberOfTransactions(transactionsData.length);
 
-
-
-      const dispenses = transactionsData
-        .filter(transaction => (transaction.type === "-"))
-        .map(transaction => transaction.value);
+        const incomes = transactionsData
+          .filter(transaction => (transaction.type === "+"))
+          .map(transaction => transaction.value);
 
 
 
-      const totalIncome = incomes.reduce((acc, curr) => acc + curr, 0);
-      const totalDispense = dispenses.reduce((acc, curr) => acc + curr, 0);
-      setTotalIncome(totalIncome);
-      setTotalDispense(totalDispense);
-      setBalance(totalIncome - totalDispense);
+        const dispenses = transactionsData
+          .filter(transaction => (transaction.type === "-"))
+          .map(transaction => transaction.value);
+
+
+
+        const totalIncome = incomes.reduce((acc, curr) => acc + curr, 0);
+        const totalDispense = dispenses.reduce((acc, curr) => acc + curr, 0);
+        setTotalIncome(totalIncome);
+        setTotalDispense(totalDispense);
+        setBalance(totalIncome - totalDispense);
+
+      }
+
 
     });
 
@@ -93,7 +98,7 @@ export default function App() {
   useEffect(() => {
     const today = new Date().toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })
     setSelectedDate(today);
-
+    console.log(transactionsData)
   }, []);
 
 

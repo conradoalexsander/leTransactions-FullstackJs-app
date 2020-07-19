@@ -20,7 +20,7 @@ transactionRouter.get('/', async (req, res) => {
     const transactions = await transactionService.findAll(period, description);
 
     if (transactions.length === 0) {
-      res.send([{ message: 'No results could be found with this criteria' }]);
+      res.status(204).send([{ message: 'No results could be found with this criteria' }]);
     }
 
     res.send(transactions);
