@@ -110,8 +110,10 @@ export default function CreateEditForm({
         await api.post('/', data);
         alert('Transação criada com sucesso!');
       }
-      closeModal();
+
       refreshData(data);
+      closeModal();
+
 
     } catch (error) {
       console.log(error)
@@ -172,7 +174,7 @@ export default function CreateEditForm({
                 <label htmlFor="valor">
                   Valor
                   </label>
-                <input name="value" defaultValue={originalValue} id="value" type="number" className="validate" onChange={handleInputChange} required />
+                <input name="value" defaultValue={originalValue} id="value" type="number" step=".01" className="validate" onChange={handleInputChange} required />
               </div>
 
               <div className="col s6 ">

@@ -61,44 +61,43 @@ export default function App() {
 
   useEffect(() => {
 
-    api.get('/', { params: { period: selectedDate, description: filter } }).then(response => {
-
+    async function setData() {
+      const response = await api.get('/', { params: { period: selectedDate, description: filter } });
       if (response.status === 200) {
-
         setTransactionsData(response.data);
-
-        setNumberOfTransactions(transactionsData.length);
-
-        const incomes = transactionsData
-          .filter(transaction => (transaction.type === "+"))
-          .map(transaction => transaction.value);
-
-
-
-        const dispenses = transactionsData
-          .filter(transaction => (transaction.type === "-"))
-          .map(transaction => transaction.value);
-
-
-
-        const totalIncome = incomes.reduce((acc, curr) => acc + curr, 0);
-        const totalDispense = dispenses.reduce((acc, curr) => acc + curr, 0);
-        setTotalIncome(totalIncome);
-        setTotalDispense(totalDispense);
-        setBalance(totalIncome - totalDispense);
-
       }
-
-
-    });
+    }
+    setData();
 
 
   }, [selectedDate, filter, refreshData]);
 
   useEffect(() => {
+    setNumberOfTransactions(transactionsData.length);
+
+    const incomes = transactionsData
+      .filter(transaction => (transaction.type === "+"))
+      .map(transaction => transaction.value);
+
+
+
+    const dispenses = transactionsData
+      .filter(transaction => (transaction.type === "-"))
+      .map(transaction => transaction.value);
+
+
+
+    const totalIncome = incomes.reduce((acc, curr) => acc + curr, 0);
+    const totalDispense = dispenses.reduce((acc, curr) => acc + curr, 0);
+    setTotalIncome(totalIncome);
+    setTotalDispense(totalDispense);
+    setBalance(totalIncome - totalDispense);
+  }, [transactionsData])
+
+  useEffect(() => {
     const today = new Date().toLocaleString('fr-CA', { year: 'numeric', month: "2-digit" })
     setSelectedDate(today);
-    console.log(transactionsData)
+
   }, []);
 
 
@@ -170,12 +169,14 @@ export default function App() {
 
       <h2 className="center-align">Controle Financeiro Pessoal</h2>
       <div>
-        <TransactionsSummary
-          numberOfTransactions={numberOfTransactions}
-          totalIncome={totalIncome}
-          totalDispense={totalDispense}
-          balance={balance}
-        />
+        {transactionsData &&
+          <TransactionsSummary
+            numberOfTransactions={numberOfTransactions}
+            totalIncome={totalIncome}
+            totalDispense={totalDispense}
+            balance={balance}
+          />}
+
       </div>
       <div className="row center-align my-wrapper valign-wrapper">
 
@@ -267,7 +268,7 @@ export default function App() {
       >
         <CreateEditForm
           setSelectedDate={(period) => setSelectedDate(period)}
-          setRefreshData={(period) => setRefreshData(period)}
+          setRefreshData={(data) => setRefreshData(data)}
           isEditing={false}
           closeModal={closeModal}
         />
