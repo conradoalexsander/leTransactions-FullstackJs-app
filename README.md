@@ -150,27 +150,27 @@ The application will launch in your default browser.
 <p align="center">
   You can select the month/year you want to query through arrows buttons or the dropdown list.
   <br>
-  <img src="Sample/changing-dates.png" width="800" />
+  <img src="Sample/changing-dates.gif" width="800" />
   <br>
   
   To filter your results, use the input field
   <br>
-  <img src="Sample/input.png" width="800" />
+  <img src="Sample/input.gif" width="800" />
   <br>
   
   It is possible to add a new transaction trhough the "+ Novo Lançamento" (+ New Transaction) button.
   <br>
-  <img src="Sample/add-new.png" width="800" />
+  <img src="Sample/add-new.gif" width="800" />
   <br>
   
   Maybe you will want to update a transaction with new info, to do this, just click in the Edit icon. Howerver, you can't change its type (it would be veeery strage, don't you think? :laughing:):
   </br>
-  <img src="Sample/edit-transaction.png" width="800" />
+  <img src="Sample/edit-transaction.gif" width="800" />
   <br>
   
   Finally, to delete a transaction, just click in the trash icon:
    <br>
-  <img src="Sample/delete-transaction.png" width="800" />
+  <img src="Sample/delete-transaction.gif" width="800" />
   <br>
   
 </p>
