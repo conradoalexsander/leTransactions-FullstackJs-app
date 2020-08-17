@@ -33,11 +33,11 @@
   <a href="https://github.com/conradoalexsander/leTransactions-FullstackJs-app">
     <img src="Sample/Logo.png" alt="Logo" width="200" height="200">
   </a>
-
-  <h1 align="center">Error Central API</h1>
+s
+  <h1 align="center">Le Transaction - Fullstack Js App</h1>
 
   <h2 align="center">
-    Save your application's error logs!
+   Register your daily financial transactions !
   </h2>
     <br />
  
@@ -47,9 +47,9 @@
 ## <h2 id="about-the-project"> :mortar_board: &nbsp; &nbsp; About The Project </h2>
 
 
-"In modern projects it is increasingly common to use architectures based on services or microservices. In these complex environments, errors can arise in different layers of the application (backend, frontend, mobile, desktop) and even in different services. Thus, it is very important that developers can centralize all error records in one place, from where they can monitor and make better decisions. In this project, we will implement a system to centralize application error records." - Codenation
+“Rule No. 1: Never lose money. Rule No. 2: Never forget rule No.1” – Warren Buffett
 
-Project developed during the AceleraDev C#, a developer bootcamp organized by <a href="https://www.codenation.dev/">Codenation</a> focused in C# and ASP .NET Core API application.
+Project developed during the Fullstack Js course, a developer bootcamp organized by <a href="https://www.igti.com.br/">IGTI</a> focused in Js - React.js, Node.js and MongoDB (local and Atlas).
 
 <p align="center">
 <img
@@ -83,102 +83,76 @@ height="300px"
 <!-- BUILT WITH -->
 ## <h2 id="built-with">:rocket: &nbsp; &nbsp; Built With</h2> 
 
-### Web API
-* []() C#
-* []() ASP .NET Core ```3.1``` 
-* []() Entity Framework Core
-* []() Automapper
+### Frontend (Client)
+* []() Js
+* []() React.js
+* []() Materialize CSS
+* []() React Modals
+
+### Backend (Server)
+* []() Js
+* []() Node.js
+* []() Express
+* []() CORS
+* []() Mongoose
 
 ### Database
-* []() SQL Server (localdb)
-* []() Fluent API (Entity Framework, code first)
-
-### Login and Authorization
-* []() ASP .NET Core EF Identity
-* []() JWT Token
+* []() MongoDB Atlas
 
 ### Deploy
-* []() .Docker and Docker Compose
 * []() .Heroku
 
-### Tests
-* []() .Net Core dotnet test
-* []() .Net Core xUnit
 
 ## <h3 id="prerequisites"> :pushpin: &nbsp; &nbsp; Prerequisites </h2>
 
-* []() .NET / .NET Core 3.1
-* []() MS SQL Server - localdb
-* []() Visual Studio 2019 
+* []() Node.js (12.17+)
+* []() Yarn or NPM
+* []() A DB hosted in MongoDB Atlas 
 
-Obs.: Visual Studio 2019 is a .NET framework and this project was made using it. Therefore I am putting it here as a prerequisite because the Getting Started
-Section will consider the user is using it. However, it should be perfectly possible to run this project in another version of this application or even in totally different
-frameworks and setups, with the properly configuration.
+Obs.: With some adjustments, this application can  be run locally.
 
 ## <h3 id="installation"> :computer: &nbsp; &nbsp; Installation </h2>
  
-1. Clone the leTransactions-FullstackJs-app
+1. Clone the leTransactions FullstackJsapp
 ```sh
 git clone https://github.com/conradoalexsander/leTransactions-FullstackJs-app.git
 ```
 
-2. Create a database to in MSSQL Server (sugggested name ErrorCentral) to use it in this application, the tables will be automatically created in the migration proccess later (see more in the Getting Started section).
+2. In the root folder, create a .env file with the DB_CONNECTION environment variable:
+```sh
+DB_CONNECTION="YOU_DB_CONNECTION"
+```
+
+3. In the client folder (root > client), create a .env file with the SKIP_PREFLIGHT_CHECK environment variable:
+```sh
+SKIP_PREFLIGHT_CHECK=true
+```
 
 <!-- GETTING STARTED -->
 ## <h2 id="getting-started">:fire: &nbsp; &nbsp; Getting Started </h2>
 
 Before following the next steps, make sure to have the prerequisites installed and configurated. 
 
-This project was built using MS Visual Studio 2019. Therefore, the next steps considers this 
-
-1. Double-click ErrorCentral.sln file
-
-2. Open the Package Manager console and change de Default project to ErrorCentral.Data:
-
-2. To update the database with the correct tables and columns through migration, open the Package Manager console and run the following command:
+1. Open a terminal in the root folder and run following command:
 ```sh
-Update-Database
+yarn start
 ```
 
-The application will launch in the Swagger documentation home page.
+2. Open a terminal in the client folder (root > client) and run following command:
+```sh
+yarn start
+```
 
+The application will launch in your default browser.
 
-<!-- ENDPOINTS -->
-## <h2 id="endpoints"> :triangular_flag_on_post: &nbsp; &nbsp; Endpoints </h2>
-
-After the application start, it is possible to access the Swagger live documentation about endpoints and schemas in the application index: https://localhost:44369/swagger/index.html.
 
 <!-- USAGE -->
 ## <h2 id="usage"> :sparkles: &nbsp; &nbsp; Usage </h2>
 
-By design, all actions routes in this project requires Authorization (Bearer Token). Because of that, remember to make a login through the /api/User/Login to get your Token
 
 <p align="center">
-  <img src="Sample/Login.png" width="800" />
-  <img src="Sample/Token.png" width="800" />
-</p>
-
-And authorize your access with it:
-
-<p align="center">
-  <img src="Sample/authorize_click.png" width="800" />
-   <img src="Sample/authorize_window.png" width="800" />
-</p>
-
-Now, you can execution all actions in the API.
-
-<!-- SCHEMAS -->
-## <h2 id="schemas"> :earth_americas: &nbsp; &nbsp; Schemas </h2>
-<h3> Database Schema </h3>
-
-<p align="center">
-  <img src="Sample/Database Diagram.png" width="800" />
-</p>
-
-<h3> Class-Service Schema </h3>
-
-<p align="center">
-  <img src="Sample/Class Service Diagram.png" width="800" />
+  <img src="Sample/Input.png" width="800" />
+  <img src="Sample/Action.png" width="800" />
 </p>
 
 <!-- DEMO -->
@@ -187,41 +161,14 @@ Now, you can execution all actions in the API.
 A demo of the project was deployed in heroku, you can check it here:
 | Platform | Service | Link |
 | :--- | :--- | :--- |
-| Heroku | Swagger Live Doc | [https://leTransactions-FullstackJs-app-codenation.herokuapp.com/swagger/index.html](https://leTransactions-FullstackJs-app-codenation.herokuapp.com/swagger/index.html)|
+| Heroku | Swagger Live Doc | [https://letransactions-desafio-final.herokuapp.com](https://letransactions-desafio-final.herokuapp.com)|
 
-*Obs.: Follow this steps to login and authorize endpoint usage
-
-1. Click in the /api/User/Login (first rout in User's routes section) route and use this request body:
-
-```sh
-{
-  "email": "codenation@stechnation.com",
-  "password": "Codenation@123"
-}
-```
-2. Copy the token in the response of this request (it is a string of stranger characters)
-
-3. Roll up to the top of the page and click in the <b>Authorize</b> button
-
-3. Paste your token in the <b>Value</b> field and click in Authorize
-
-3. Click in close and now you are ready to use all endpoints in the API :)
-
-
-<!-- EXECUTING TESTS -->
-## <h2 id="executing-tests"> :vertical_traffic_light: &nbsp; &nbsp; Executing tests </h2>
-
-To execute the xUnit tests in this application, right click the ErrorCentral.Test project and click in run:
-
-<p align="center" float="left">
-  <img src="Sample/Running Tests.png" width="800" /> 
-</p>
+*Obs.: Currently, this app only supports desktop usage. Using it in small screens may lead to incorrect visuals and behavior.
 
 <!-- LICENSE -->
 ## <h2 id="license"> :scroll: &nbsp; &nbsp; License </h2>
 
 Distributed under the MIT License.
-
 
 <!-- CONTACT -->
 ## <h2 id="contact"> :telephone_receiver: &nbsp; &nbsp; Contact </h2>
@@ -235,9 +182,7 @@ Project Link: [https://github.com/conradoalexsander/leTransactions-FullstackJs-a
 <!-- ACKNOWLEDGEMENTS -->
 ## <h2 id="acknowledgements"> :thumbsup: &nbsp; &nbsp; Acknowledgements </h2>
 
-* []() <a href="https://github.com/stone-payments/">Stone Stech Team</a>
-* []() <a href="https://www.codenation.dev/">Codenation</a>
-
+* []() <a href="https://www.igti.com.br/">IGTI Team</a>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
