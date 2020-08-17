@@ -147,33 +147,42 @@ The application will launch in your default browser.
 ## <h2 id="usage"> :sparkles: &nbsp; &nbsp; Usage </h2>
 
 
-<p align="center">
+  <p align="center">
   You can select the month/year you want to query through arrows buttons or the dropdown list.
-  <br>
+  <br/>
   <img src="Sample/changing-dates.gif" width="800" />
-  <br>
+  <br/>
+  </p>
   
+  <p align="center">
   To filter your results, use the input field
-  <br>
+  <br/>
   <img src="Sample/input.gif" width="800" />
-  <br>
+  <br/>
+  </p>
   
+  <p align="center">
   It is possible to add a new transaction trhough the "+ Novo Lançamento" (+ New Transaction) button.
-  <br>
+  <br/>
   <img src="Sample/add-new.gif" width="800" />
-  <br>
+  <br/>
+  </p>
   
+  <p align="center">
   Maybe you will want to update a transaction with new info, to do this, just click in the Edit icon. Howerver, you can't change its type (it would be veeery strage, don't you think? :laughing:):
-  </br>
+  <br />
   <img src="Sample/edit-transaction.gif" width="800" />
   <br>
+  </p>
   
+  <p align="center">
   Finally, to delete a transaction, just click in the trash icon:
-   <br>
+   <br />
   <img src="Sample/delete-transaction.gif" width="800" />
-  <br>
+  <br />
+  </p>
   
-</p>
+
 
 <!-- DEMO -->
 ## <h2 id="demo"> :tv: &nbsp; &nbsp; Demo </h2>
