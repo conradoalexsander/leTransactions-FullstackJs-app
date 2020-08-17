@@ -53,7 +53,7 @@ Project developed during the Fullstack Js course, a developer bootcamp organized
 
 <p align="center">
 <img
-src="Sample/Error_Central_API.png"
+src="Sample/home-screen.png"
 raw=true
 alt="Web Home Screen" 
 height="300px" 
@@ -71,11 +71,8 @@ height="300px"
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
 * [Getting Started](#getting-started)
-* [Endpoints](#endpoints)
 * [Usage](#usage)
-* [Schemas](#schemas)
 * [Demo](#demo)
-* [Executing Tests](#executing-tests)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -151,8 +148,31 @@ The application will launch in your default browser.
 
 
 <p align="center">
-  <img src="Sample/Input.png" width="800" />
-  <img src="Sample/Action.png" width="800" />
+  You can select the month/year you want to query through arrows buttons or the dropdown list.
+  <br>
+  <img src="Sample/changing-dates.png" width="800" />
+  <br>
+  
+  To filter your results, use the input field
+  <br>
+  <img src="Sample/input.png" width="800" />
+  <br>
+  
+  It is possible to add a new transaction trhough the "+ Novo Lançamento" (+ New Transaction) button.
+  <br>
+  <img src="Sample/add-new.png" width="800" />
+  <br>
+  
+  Maybe you will want to update a transaction with new info, to do this, just click in the Edit icon. Howerver, you can't change its type (it would be veeery strage, don't you think? :laughing:):
+  </br>
+  <img src="Sample/edit-transaction.png" width="800" />
+  <br>
+  
+  Finally, to delete a transaction, just click in the trash icon:
+   <br>
+  <img src="Sample/delete-transaction.png" width="800" />
+  <br>
+  
 </p>
 
 <!-- DEMO -->
@@ -161,7 +181,7 @@ The application will launch in your default browser.
 A demo of the project was deployed in heroku, you can check it here:
 | Platform | Service | Link |
 | :--- | :--- | :--- |
-| Heroku | Swagger Live Doc | [https://letransactions-desafio-final.herokuapp.com](https://letransactions-desafio-final.herokuapp.com)|
+| Heroku | Client | [https://letransactions-desafio-final.herokuapp.com](https://letransactions-desafio-final.herokuapp.com)|
 
 *Obs.: Currently, this app only supports desktop usage. Using it in small screens may lead to incorrect visuals and behavior.
 
